@@ -17,19 +17,26 @@ function option() {
 
 startPosition=0
 newPosition=0
-
+prevPosition=0
 function userChoice() {
 	while [[ $newPosition -lt 100 ]]
 	 do
 		Operation=$( option )
 		case $Operation in
 			"1")
+			prevPosition=$newPosition
 			newPosition=$newPosition
 			;;
 			"2")
+			prevPosition=$newPosition
 			newPosition=$(($newPosition+$( random )))
+			if [[ $newPosition -gt 100 ]]
+				then
+					newPosition=$prevPosition
+			fi
 			;;
 			"3")
+			prevPosition=$newPosition
 			newPosition=$(($newPosition-$( random )))
 			if [[ $newPosition -lt 0 ]]
 				then
@@ -41,4 +48,3 @@ function userChoice() {
 	 done
 }
 userChoice
-echo $newPosition
