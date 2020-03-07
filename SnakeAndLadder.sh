@@ -5,7 +5,9 @@
 #Author : Kunal Jadhav
 #Date : 7 March 2020
 
+
 function random() {
+	((diceCounter++))
 	state=$((RANDOM%6+1))
 	echo $state
 }
@@ -14,7 +16,7 @@ function option() {
 	optionState=$((RANDOM%3+1))
 	echo $optionState
 }
-
+diceCounter=0
 startPosition=0
 newPosition=0
 prevPosition=0
@@ -34,6 +36,8 @@ function userChoice() {
 				then
 					newPosition=$prevPosition
 			fi
+			((diceCounter++))
+			echo "position after die roll $newPosition"
 			;;
 			"3")
 			prevPosition=$newPosition
@@ -42,9 +46,11 @@ function userChoice() {
 				then
 					newPosition=0
 			fi
+			((diceCounter++))
+			echo "position after die roll $newPosition"
 			;;
 		esac
-		echo $newPosition
-	 done
+		done
 }
 userChoice
+echo "$diceCounter Times the dice was rolled"
