@@ -1,10 +1,8 @@
-
 #!/bin/bash -x
 #Problem Statement : Snake and Ladder Game.
 #Discription : This problem simulates a Snake and Ladder Game.
 #Author : Kunal Jadhav
 #Date : 7 March 2020
-
 
 function random() {
 	((diceCounter++))
@@ -16,11 +14,12 @@ function option() {
 	optionState=$((RANDOM%3+1))
 	echo $optionState
 }
-diceCounter=0
-startPosition=0
+
 newPosition=0
 prevPosition=0
+
 function userChoice() {
+	diceCounter=0
 	while [[ $newPosition -lt 100 ]]
 	 do
 		Operation=$( option )
@@ -37,7 +36,7 @@ function userChoice() {
 					newPosition=$prevPosition
 			fi
 			((diceCounter++))
-			echo "position after die roll $newPosition"
+#			echo "position after die roll $newPosition"
 			;;
 			"3")
 			prevPosition=$newPosition
@@ -47,10 +46,22 @@ function userChoice() {
 					newPosition=0
 			fi
 			((diceCounter++))
-			echo "position after die roll $newPosition"
+#			echo "position after die roll $newPosition"
 			;;
 		esac
-		done
+	 done
+	 echo $diceCounter
 }
-userChoice
-echo "$diceCounter Times the dice was rolled"
+
+read -p "Enter Player1 name: " player1
+read -p "Enter Player2 name: " player2
+player1Rolls=$( userChoice )
+player2Rolls=$( userChoice )
+echo "$player1Rolls times $player1 rolls the dice"
+echo "$player2Rolls times $player2 rolls the dice"
+if [[ $player1Rolls < $player2Rolls ]]
+ then
+	echo "Winner is $player1"
+ else
+	echo "Winner is $player2"
+fi
